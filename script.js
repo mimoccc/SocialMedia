@@ -1,9 +1,16 @@
 SC.initialize({
-			  client_id: '86c849221acbcb295a5e6d8c8fb194d8'
-			  });
+  client_id: 'YOUR_CLIENT_ID'
+});
 
 $(document).ready(function() {
-				  SC.get('/tracks/293', function(track) {
-						 $('#player').html(track.title);
-						 });
-				  });
+    var i = 0;
+  SC.get('/tracks', { genres: 'rock' }, function(tracks) {
+    $(tracks).each( function(index, track) {
+        i++;
+      $('#results').append($('<li></li>').html(
+          track.title + ' - ' + track.genre+ ' - ' + 
+      track.favoritings_count + ' '+i ));
+    } //  fun(index,track)
+    ); //  get(tracks,genre, func)
+  });
+});
